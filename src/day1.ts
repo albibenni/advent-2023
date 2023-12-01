@@ -12,8 +12,9 @@ const charDigits: any = {
   nine: 9,
 };
 
-let sum = 0;
+let sum: number = 0;
 const input = readFileSync("./input/input.txt", "utf8").split("\n");
+
 input.forEach((line) => {
   const newLine = getDigits(line);
   const digits = [];
@@ -23,6 +24,8 @@ input.forEach((line) => {
     }
   }
   const num = parseInt(digits[0] + "" + digits.at(-1));
+  console.log(num);
+
   sum += num;
 });
 

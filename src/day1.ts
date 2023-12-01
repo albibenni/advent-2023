@@ -39,45 +39,24 @@ Find the Elf carrying the most Calories. How many total Calories is that Elf car
 */
 import { readFileSync } from "fs";
 
-const input = readFileSync("./input/input.txt", "utf8").split("\n");
-let index = 0;
+const input = ["1abc2", "pqr3stu8vwx", "a1b2c3d4e5f", "treb7uchet"];
+// const input = readFileSync("./input/input.txt", "utf8").split("\n");
 let arrays: number[][] = [];
 let row: number[] = new Array<number>();
-arrays[index] = [];
-input.forEach((x) => {
-  if (x === "") {
-    arrays.push(row);
-    row = new Array<number>();
-  } else {
-    row.push(parseInt(x));
-  }
-});
-
-let highest: number = 0;
-arrays.forEach((x) => {
-  if (x.length === 0) return;
-  let sum = x.reduce((a, b) => a + b);
-  if (sum > highest) {
-    highest = sum;
-  }
-});
-
-console.log(highest);
-
-let top3 = [0, 0, 0];
-console.log(top3);
-
-arrays.forEach((x) => {
-  if (x.length === 0) return;
-  let sum = x.reduce((a, b) => a + b);
-  for (let i = 0; i < 2; i++) {
-    if (sum > top3[1]!) {
-      if (top3[1]! > top3[i]!) {
-        top3[i] = top3[1]!;
+for (let index = 0; index < input.length; index++) {
+  const string = input[index];
+  if (string !== undefined) {
+    for (let i = 0; i < string.length; i++) {
+      const element = string.charAt(i);
+      if (element >= "0" && element <= "9") {
+        console.log(element);
+        row = new Array<number>();
+        row.push(parseInt(element));
+        arrays.push(row);
+        break;
       }
-      top3[1] = sum;
     }
   }
-});
+}
 
-console.log(top3[0]! + top3[1]! + top3[2]!);
+console.log(arrays);

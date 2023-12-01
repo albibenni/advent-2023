@@ -39,24 +39,54 @@ Find the Elf carrying the most Calories. How many total Calories is that Elf car
 */
 import { readFileSync } from "fs";
 
-const input = ["1abc2", "pqr3stu8vwx", "a1b2c3d4e5f", "treb7uchet"];
-// const input = readFileSync("./input/input.txt", "utf8").split("\n");
-let arrays: number[][] = [];
-let row: number[] = new Array<number>();
-for (let index = 0; index < input.length; index++) {
+// const input = ["1abc2", "pqr3stu8vwx", "a1b2c3d4e5f", "treb7uchet"];
+const input = readFileSync("./input/input.txt", "utf8").split("\n");
+let arrays: string[][] = [];
+let row: string[] = [];
+const inputLength = input.length;
+
+for (let index = 0; index < inputLength; index++) {
   const string = input[index];
   if (string !== undefined) {
-    for (let i = 0; i < string.length; i++) {
+    let i = 0;
+    const stringLength = string.length;
+    for (i = 0; i < stringLength; i++) {
       const element = string.charAt(i);
       if (element >= "0" && element <= "9") {
         console.log(element);
-        row = new Array<number>();
-        row.push(parseInt(element));
-        arrays.push(row);
+        row = [];
+        row.push(element);
+        arrays.push([`${element}`]);
+        break;
+      }
+    }
+    for (let y = stringLength; y >= i; y--) {
+      const element = string.charAt(y);
+      if (element >= "0" && element <= "9") {
+        arrays[index] = [`${arrays[index]}${element}`];
         break;
       }
     }
   }
 }
 
-console.log(arrays);
+// for (let index = 0; index < inputLength; index++) {
+//   const string = input[index];
+//   if (string !== undefined) {
+//     for (let i = string.length; i > 0; i--) {
+//       const element = string.charAt(i);
+//       if (element >= "0" && element <= "9") {
+//         // row = [`${arrays[index]}${parseInt(element)}`];
+//         arrays[index] = [`${arrays[index]}${element}`];
+//         break;
+//       }
+//     }
+//   }
+// }
+
+// console.log(arrays);
+
+const result = arrays
+  .map((element) => element.reduce((a, b) => a + parseInt(b), 0))
+  .reduce((a, b) => a + b, 0);
+console.log(result);

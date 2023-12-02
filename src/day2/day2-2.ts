@@ -2,7 +2,7 @@ import { log } from "console";
 import { readFileSync } from "fs";
 import { getGameNumber, matchMap } from "./day2.js";
 
-const input = readFileSync("./src/day2/input/test.txt", "utf8").split("\n");
+const input = readFileSync("./src/day2/input/input.txt", "utf8").split("\n");
 const highestPossibleGamesMultiplied: number[] = [];
 const extractedCubes: Map<string, number> = new Map();
 extractedCubes.set("red", 12);

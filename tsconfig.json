@@ -6,7 +6,7 @@
   },
   "compilerOptions": {
     // "lib": ["ESNext"],
-    "module": "ESNext",
+    "module": "NodeNext",
     "target": "es2022",
     "strict": true,
     "noUncheckedIndexedAccess": true,
@@ -14,7 +14,8 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "outDir": "out",
-    "sourceMap": true
+    "sourceMap": true,
+    "moduleResolution": "NodeNext"
   },
   "include": ["src/**/*.ts"]
 }

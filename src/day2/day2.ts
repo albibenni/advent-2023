@@ -72,4 +72,4 @@ input.forEach((line) => {
 
 const sumPossibleGames = possibleGames.reduce((a, b) => a + b, 0);
 
-log(sumPossibleGames);
+// log(sumPossibleGames);

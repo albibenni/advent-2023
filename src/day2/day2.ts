@@ -5,8 +5,8 @@ const input = readFileSync("./src/day2/input/input.txt", "utf8").split("\n");
 const possibleGames: number[] = [];
 const extractedCubes: Map<string, number> = new Map();
 extractedCubes.set("red", 12);
-extractedCubes.set("blue", 14);
 extractedCubes.set("green", 13);
+extractedCubes.set("blue", 14);
 
 const getStringDigit = (str: string): string => {
   const newStr = str.replace(/\D/g, "");
@@ -14,14 +14,13 @@ const getStringDigit = (str: string): string => {
 };
 
 const getGameNumber = (str: string): string => {
-  let i = 5;
+  let i = "Game ".length;
   let currChar = str.charAt(i);
   let gameNumber = "";
   while (!isNaN(parseInt(currChar))) {
     gameNumber = `${gameNumber}${currChar}`;
     currChar = str.charAt(++i);
   }
-  log(gameNumber);
   return gameNumber;
 };
 
@@ -41,29 +40,33 @@ const matchMap = (str: string): Map<string, number> => {
 
 input.forEach((line) => {
   const gameNumber = parseInt(getGameNumber(line));
-  const currentCubes: Map<string, number> = new Map();
-  currentCubes.set("red", 0);
-  currentCubes.set("blue", 0);
-  currentCubes.set("green", 0);
   let i = 6 + gameNumber.toString.length;
   let start = i;
-  for (i; i < line.length - 2; i++) {
-    if (line.charAt(i) === "," || line.charAt(i) === ";") {
+  for (i; i <= line.length; i++) {
+    let isPossible = true;
+    const currentCubes: Map<string, number> = new Map();
+    if (line.charAt(i) === "," || line.charAt(i) === ";" || i === line.length) {
+      currentCubes.set("red", 0);
+      currentCubes.set("green", 0);
+      currentCubes.set("blue", 0);
       const str = line.substring(start, i).trim();
-      start = i + 1;
+      start = i + 2;
       const mapTemp = matchMap(str);
       const [firstKey] = mapTemp.keys();
       const [firstValue] = mapTemp.values();
       currentCubes.set(firstKey!, firstValue! + currentCubes.get(firstKey!)!);
+      if (
+        currentCubes.get("red")! > extractedCubes.get("red")! ||
+        currentCubes.get("blue")! > extractedCubes.get("blue")! ||
+        currentCubes.get("green")! > extractedCubes.get("green")!
+      ) {
+        isPossible = false;
+        break;
+      }
     }
-  }
-
-  if (
-    currentCubes.get("red")! <= extractedCubes.get("red")! &&
-    currentCubes.get("blue")! <= extractedCubes.get("blue")! &&
-    currentCubes.get("green")! <= extractedCubes.get("green")!
-  ) {
-    possibleGames.push(gameNumber);
+    if (i === line.length && isPossible) {
+      possibleGames.push(gameNumber);
+    }
   }
 });
 

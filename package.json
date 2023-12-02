@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "dev": "ts-node src/index.ts",
-    "day1": "node --loader ts-node/esm src/day1.ts"
+    "day1": "node --loader ts-node/esm src/day1/day1.ts",
+    "day2": "node --loader ts-node/esm src/day2/day2.ts",
+    "test": "node --loader ts-node/esm src/day2/test.ts"
   },
   "keywords": [],
   "author": "",

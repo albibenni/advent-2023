@@ -8,12 +8,12 @@ extractedCubes.set("red", 12);
 extractedCubes.set("green", 13);
 extractedCubes.set("blue", 14);
 
-const getStringDigit = (str: string): string => {
+export const getStringDigit = (str: string): string => {
   const newStr = str.replace(/\D/g, "");
   return newStr;
 };
 
-const getGameNumber = (str: string): string => {
+export const getGameNumber = (str: string): string => {
   let i = "Game ".length;
   let currChar = str.charAt(i);
   let gameNumber = "";
@@ -24,7 +24,7 @@ const getGameNumber = (str: string): string => {
   return gameNumber;
 };
 
-const matchMap = (str: string): Map<string, number> => {
+export const matchMap = (str: string): Map<string, number> => {
   let myKey = "";
   let num = 0;
   const map: Map<string, number> = new Map();

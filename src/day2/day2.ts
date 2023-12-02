@@ -1,33 +1,27 @@
 import { log } from "console";
 import { readFileSync } from "fs";
 
-const input = readFileSync("./src/day2/input/test.txt", "utf8").split("\n");
+const input = readFileSync("./src/day2/input/input.txt", "utf8").split("\n");
 const possibleGames: number[] = [];
 const extractedCubes: Map<string, number> = new Map();
 extractedCubes.set("red", 12);
 extractedCubes.set("blue", 14);
 extractedCubes.set("green", 13);
-// map.get(key) returns the value associated with the key, or undefined if there is none.
 
 const getStringDigit = (str: string): string => {
   const newStr = str.replace(/\D/g, "");
-  //   const newStr = str.replace(key, "").trim();
-  //   console.log(newStr);
-
   return newStr;
 };
 
-const getGameNumber = (str: string): number => {
+const getGameNumber = (str: string): string => {
   let i = 5;
   let currChar = str.charAt(i);
-  let gameNumber = 0;
+  let gameNumber = "";
   while (!isNaN(parseInt(currChar))) {
-    if (gameNumber !== 0) {
-      gameNumber = parseInt(gameNumber + "" + currChar);
-    }
-    gameNumber = parseInt(currChar);
+    gameNumber = `${gameNumber}${currChar}`;
     currChar = str.charAt(++i);
   }
+  log(gameNumber);
   return gameNumber;
 };
 
@@ -46,7 +40,7 @@ const matchMap = (str: string): Map<string, number> => {
 };
 
 input.forEach((line) => {
-  const gameNumber = getGameNumber(line);
+  const gameNumber = parseInt(getGameNumber(line));
   const currentCubes: Map<string, number> = new Map();
   currentCubes.set("red", 0);
   currentCubes.set("blue", 0);
@@ -75,4 +69,4 @@ input.forEach((line) => {
 
 const sumPossibleGames = possibleGames.reduce((a, b) => a + b, 0);
 
-console.log(sumPossibleGames);
+log(sumPossibleGames);

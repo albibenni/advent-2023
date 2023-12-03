@@ -43,10 +43,10 @@ const getNearbyNumbers = (
       break;
     }
   }
-  for (let i = index - 1; i > 0; i--) {
-    const element = input[rowNumber]![index] as string;
+  for (let y = index - 1; y > 0; y--) {
+    const element = input[rowNumber]![y] as string;
     if (isNumeric(element)) {
-      log("left: ", element, " row: ", rowNumber, " index: ", i);
+      log("left: ", element, " row: ", rowNumber, " index: ", y);
       combinedNumber = `${element}${combinedNumber}`;
       //   log(combinedNumber);
     } else {
@@ -87,7 +87,7 @@ const getAdjacentNumbers = (rowNumber: number, index: number): number[] => {
       const element = aboveLine[index - 1] as string;
       if (isNumeric(element)) {
         adjacentNumbers.push(
-          parseInt(getNearbyNumbers(rowNumber, index + 1, element)),
+          parseInt(getNearbyNumbers(rowNumber - 1, index + 1, element)),
         );
       }
     }
@@ -97,7 +97,7 @@ const getAdjacentNumbers = (rowNumber: number, index: number): number[] => {
       const element = aboveLine[index + 1] as string;
       if (isNumeric(element)) {
         adjacentNumbers.push(
-          parseInt(getNearbyNumbers(rowNumber, index + 1, element)),
+          parseInt(getNearbyNumbers(rowNumber - 1, index + 1, element)),
         );
       }
     }
@@ -105,7 +105,7 @@ const getAdjacentNumbers = (rowNumber: number, index: number): number[] => {
     const element = aboveLine[index] as string;
     if (isNumeric(element)) {
       adjacentNumbers.push(
-        parseInt(getNearbyNumbers(rowNumber, index + 1, element)),
+        parseInt(getNearbyNumbers(rowNumber - 1, index, element)),
       );
     }
   }
@@ -119,7 +119,7 @@ const getAdjacentNumbers = (rowNumber: number, index: number): number[] => {
       const element = belowLine[index - 1] as string;
       if (isNumeric(element)) {
         adjacentNumbers.push(
-          parseInt(getNearbyNumbers(rowNumber, index - 1, element)),
+          parseInt(getNearbyNumbers(rowNumber + 1, index - 1, element)),
         );
       }
     }
@@ -130,7 +130,7 @@ const getAdjacentNumbers = (rowNumber: number, index: number): number[] => {
       log(element);
       if (isNumeric(element)) {
         adjacentNumbers.push(
-          parseInt(getNearbyNumbers(rowNumber, index + 1, element)),
+          parseInt(getNearbyNumbers(rowNumber + 1, index + 1, element)),
         );
       }
     }
@@ -138,7 +138,7 @@ const getAdjacentNumbers = (rowNumber: number, index: number): number[] => {
     const element = belowLine[index] as string;
     if (isNumeric(element)) {
       adjacentNumbers.push(
-        parseInt(getNearbyNumbers(rowNumber, index + 1, element)),
+        parseInt(getNearbyNumbers(rowNumber + 1, index + 1, element)),
       );
     }
   }
@@ -165,4 +165,4 @@ const getAdjacentNumbers = (rowNumber: number, index: number): number[] => {
 
 // log(validNumbers.reduce((a, b) => a + b, 0));
 
-log(getAdjacentNumbers(0, 9));
+// log(getAdjacentNumbers(0, 9));

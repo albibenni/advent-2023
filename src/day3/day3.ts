@@ -1,7 +1,7 @@
 import { log } from "console";
 import { readFileSync } from "fs";
 
-const input = readFileSync("./src/day3/input/test2.txt", "utf8").split("\n");
+const input = readFileSync("./src/day3/input/input.txt", "utf8").split("\n");
 const inputLength = input.length;
 const rowHeight = input.length;
 const rowLength = input[0]!.length;

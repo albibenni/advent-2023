@@ -8,7 +8,9 @@
     "dev": "ts-node src/index.ts",
     "day1": "node --loader ts-node/esm src/day1/day1.ts",
     "day2": "node --loader ts-node/esm src/day2/day2.ts",
-    "day2-2": "node --loader ts-node/esm src/day2/day2-2.ts"
+    "day2-2": "node --loader ts-node/esm src/day2/day2-2.ts",
+    "day3": "node --loader ts-node/esm src/day2/day3.ts",
+    "day3-2": "node --loader ts-node/esm src/day2/day3-2.ts"
   },
   "keywords": [],
   "author": "",

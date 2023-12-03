@@ -33,9 +33,9 @@ const getNearbyNumbers = (
 ): string => {
   let combinedNumber = number;
   //! same line next to right
-  for (let i = index; i < rowLength; i++) {
+  log(input[rowNumber]![index + 1]);
+  for (let i = index + 1; i < rowLength; i++) {
     const element = input[rowNumber]![i] as string;
-
     if (isNumeric(element)) {
       log("right: ", element, " row: ", rowNumber, " index: ", i);
       combinedNumber = `${combinedNumber}${element}`;
@@ -45,7 +45,6 @@ const getNearbyNumbers = (
   }
   for (let i = index - 1; i > 0; i--) {
     const element = input[rowNumber]![index] as string;
-
     if (isNumeric(element)) {
       log("left: ", element, " row: ", rowNumber, " index: ", i);
       combinedNumber = `${element}${combinedNumber}`;
@@ -57,15 +56,10 @@ const getNearbyNumbers = (
   return combinedNumber;
 };
 
-const getAdjacentNumbers = (
-  rowNumber: number,
-  index: number,
-  number: string,
-): number[] => {
-  const numberLength = number.length;
+const getAdjacentNumbers = (rowNumber: number, index: number): number[] => {
   let adjacentNumbers: number[] = [];
   //! same line
-  // check next in line
+  // check right next in line
   if (index < rowLength - 1) {
     let element = input[rowNumber]![index + 1] as string;
     if (isNumeric(element)) {
@@ -74,13 +68,13 @@ const getAdjacentNumbers = (
       );
     }
   }
-  // check previous in line counting number length
-  if (index - numberLength > 0) {
-    const element = input[rowNumber]![index - numberLength] as string;
+  // check left in line
+  if (index - 1 > 0) {
+    const element = input[rowNumber]![index - 1] as string;
     // log(rowNumber + " " + index + " " + (index - numberLength));
     if (isNumeric(element)) {
       adjacentNumbers.push(
-        parseInt(getNearbyNumbers(rowNumber, index + 1, element)),
+        parseInt(getNearbyNumbers(rowNumber, index - 1, element)),
       );
     }
   }
@@ -88,8 +82,8 @@ const getAdjacentNumbers = (
   if (rowNumber > 0) {
     const aboveLine = input[rowNumber - 1]!;
 
-    // check top left diagonal counting number length
-    if (index - numberLength > 0) {
+    // check top left diagonal
+    if (index - 1 > 0) {
       const element = aboveLine[index - 1] as string;
       if (isNumeric(element)) {
         adjacentNumbers.push(
@@ -97,7 +91,7 @@ const getAdjacentNumbers = (
         );
       }
     }
-    // check top right diagonal counting number length
+    // check top right diagonal
     if (index < rowLength - 1) {
       //! check length
       const element = aboveLine[index + 1] as string;
@@ -125,7 +119,7 @@ const getAdjacentNumbers = (
       const element = belowLine[index - 1] as string;
       if (isNumeric(element)) {
         adjacentNumbers.push(
-          parseInt(getNearbyNumbers(rowNumber, index + 1, element)),
+          parseInt(getNearbyNumbers(rowNumber, index - 1, element)),
         );
       }
     }
@@ -133,6 +127,7 @@ const getAdjacentNumbers = (
     if (index < rowLength - 1) {
       //! check length
       const element = belowLine[index + 1] as string;
+      log(element);
       if (isNumeric(element)) {
         adjacentNumbers.push(
           parseInt(getNearbyNumbers(rowNumber, index + 1, element)),
@@ -151,33 +146,23 @@ const getAdjacentNumbers = (
   return adjacentNumbers;
 };
 
-for (let rowNumber = 0; rowNumber < inputLength; rowNumber++) {
-  const line = input[rowNumber] as string;
-  for (let index = 0; index < rowLength; index++) {
-    if (isSymbol(line[index] as string)) {
-      log("symbol: ", line[index], " row: ", rowNumber, " index: ", index);
-      validNumbers.push(
-        getAdjacentNumbers(rowNumber, index, line).reduce((a, b) => a * b, 0),
-      );
-    }
-    // const element = line[index] as string;
-    // if (isNumeric(element)) {
-    //   number = `${number}${element}`;
-    //   while (index < line.length - 1 && isNumeric(line[index + 1] as string)) {
-    //     number = `${number}${line[index + 1] as string}`;
-    //     index++;
-    //   }
-    //   log("index: ", index, " number: ", number);
-    //   //   log(isSymbolAdjacent(rowNumber, index, number), " ", number);
-    //   if (isSymbolAdjacent(rowNumber, index, number))
-    //     validNumbers.push(parseInt(number));
-    // }
-  }
-}
+// for (let rowNumber = 0; rowNumber < inputLength; rowNumber++) {
+//   const line = input[rowNumber] as string;
+//   for (let index = 0; index < rowLength; index++) {
+//     if (isSymbol(line[index] as string)) {
+//       log("symbol: ", line[index], " row: ", rowNumber, " index: ", index);
+//       validNumbers.push(
+//         getAdjacentNumbers(rowNumber, index).reduce((a, b) => a * b, 0),
+//       );
+//     }
+//   }
+// }
 
 // const number = `${""}${getNextElement(input[0]!, 0, input[0]![0]!)}`;
 // log(number);
 
 // log(isSymbolAdjacent(2, 4, "35"), " ", " 35");
 
-log(validNumbers.reduce((a, b) => a + b, 0));
+// log(validNumbers.reduce((a, b) => a + b, 0));
+
+log(getAdjacentNumbers(0, 9));

@@ -1,29 +1,13 @@
 import { log } from "console";
 import { readFileSync } from "fs";
 
-const input = readFileSync("./src/day3/input/test.txt", "utf8").split("\n");
+const input = readFileSync("./src/day3/input/test2.txt", "utf8").split("\n");
 const inputLength = input.length;
 const rowHeight = input.length;
 const rowLength = input[0]!.length;
 const validNumbers = [] as number[];
 
-const symbol = [
-  "$",
-  "%",
-  "&",
-  "#",
-  "@",
-  "!",
-  "^",
-  "~",
-  "*",
-  "+",
-  "=",
-  "-",
-  "/",
-  "<",
-  ">",
-] as const;
+const symbol = ["$", "%", "&", "#", "@", "*", "+", "=", "-", "/"] as const;
 type Symbols = (typeof symbol)[number];
 const isSymbol = (str: string): str is Symbols =>
   symbol.includes(str as Symbols);
@@ -34,10 +18,10 @@ const isNumeric = (str: string): boolean => {
 
 const isSymbolCheck = (element: string, position: string): boolean => {
   if (isSymbol(element)) {
-    // log(element, " ", true, " position: ", position);
+    log(element, " ", true, " position: ", position);
     return true;
   }
-  //   log(element, " ", false, " position: ", position);
+  log(element, " ", false, " position: ", position);
 
   return false;
 };
@@ -86,7 +70,7 @@ const isSymbolAdjacent = (
     // check for all number length
     for (let i = 0; i < numberLength; i++) {
       const element = aboveLine[index - numberLength + i + 1] as string;
-      if (isSymbolCheck(element, `top ${index + 1 - numberLength + i}`)) {
+      if (isSymbolCheck(element, `top ${index + 1 - numberLength + i + 1}`)) {
         return true;
       }
     }
@@ -114,7 +98,7 @@ const isSymbolAdjacent = (
     // check for all number length
     for (let i = 0; i < numberLength; i++) {
       const element = belowLine[index - numberLength + i + 1] as string;
-      if (isSymbolCheck(element, `bottom ${index - numberLength + i}`)) {
+      if (isSymbolCheck(element, `bottom ${index - numberLength + i + 1}`)) {
         return true;
       }
     }
@@ -131,11 +115,11 @@ for (let rowNumber = 0; rowNumber < inputLength; rowNumber++) {
     const element = line[index] as string;
     if (isNumeric(element)) {
       number = `${number}${element}`;
-      while (index < line.length - 2 && isNumeric(line[index + 1] as string)) {
+      while (index < line.length - 1 && isNumeric(line[index + 1] as string)) {
         number = `${number}${line[index + 1] as string}`;
         index++;
       }
-      //   log("index: ", index, " number: ", number);
+      log("index: ", index, " number: ", number);
       //   log(isSymbolAdjacent(rowNumber, index, number), " ", number);
       if (isSymbolAdjacent(rowNumber, index, number))
         validNumbers.push(parseInt(number));

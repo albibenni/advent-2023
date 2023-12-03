@@ -5,12 +5,8 @@ const input = readFileSync("./src/day3/input/test.txt", "utf8").split("\n");
 const inputLength = input.length;
 const rowHeight = input.length;
 const rowLength = input[0]!.length;
+const validNumbers = [] as number[];
 
-const getSymbolsFromString = (line: string): Map<string, number> => {
-  const map: Map<string, number> = new Map();
-
-  return map;
-};
 const symbol = [
   "$",
   "%",
@@ -141,7 +137,8 @@ for (let rowNumber = 0; rowNumber < inputLength; rowNumber++) {
       }
       //   log("index: ", index, " number: ", number);
       //   log(isSymbolAdjacent(rowNumber, index, number), " ", number);
-      isSymbolAdjacent(rowNumber, index, number);
+      if (isSymbolAdjacent(rowNumber, index, number))
+        validNumbers.push(parseInt(number));
     }
   }
 }
@@ -150,3 +147,5 @@ for (let rowNumber = 0; rowNumber < inputLength; rowNumber++) {
 // log(number);
 
 // log(isSymbolAdjacent(2, 4, "35"), " ", " 35");
+
+log(validNumbers.reduce((a, b) => a + b, 0));

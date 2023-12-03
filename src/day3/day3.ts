@@ -33,24 +33,63 @@ const isNumeric = (str: string): boolean => {
   return !isNaN(Number(str));
 };
 
-const getNextElement = (
-  line: string,
+const isSymbolAdjacent = (
+  rowNumber: number,
   index: number,
-  strNumber: string,
-): string | null => {
-  const nextIndex = index + 1;
-  if (index < line.length - 2 && isNumeric(line[nextIndex] as string)) {
-    // log("nextIndex ", nextIndex, " currNumber ", strNumber);
-    return getNextElement(line, nextIndex, line[nextIndex] as string);
+  number: string,
+): boolean => {
+  const numberLength = number.length;
+  //! same line
+  // check next in line
+  if (index < rowLength - 1) {
+    const element = input[rowNumber]![index + 1] as string;
+    if (isSymbol(element)) {
+      return true;
+    }
   }
-  return strNumber;
+  // check previous in line counting number length
+  if (index - numberLength > 0) {
+    const element = input[rowNumber]![index - (numberLength + 1)] as string;
+    if (isSymbol(element)) {
+      return true;
+    }
+  }
+  //! above line
+  if (rowLength > 0) {
+    const aboveLine = input[rowNumber - 1]!;
+
+    // check top left diagonal counting number length
+    if (index - numberLength > 0) {
+      const element = aboveLine[index - (numberLength + 1)] as string;
+      if (isSymbol(element)) {
+        return true;
+      }
+    }
+    // check top right diagonal counting number length
+    if (index < rowLength - 1) {
+      //! check length
+      const element = aboveLine[index + 1] as string;
+      if (isSymbol(element)) {
+        return true;
+      }
+    }
+    // check for all number length
+    for (let i = 0; i < numberLength; i++) {
+      const element = aboveLine[index - numberLength + i] as string;
+      if (isSymbol(element)) {
+        return true;
+      }
+    }
+  }
+
+  return false;
 };
 
 const inputLength = input.length;
 const rowLength = input[0]!.length;
 
-for (let row = 0; row < inputLength; row++) {
-  const line = input[row] as string;
+for (let rowNumber = 0; rowNumber < inputLength; rowNumber++) {
+  const line = input[rowNumber] as string;
   let number = "";
   for (let index = 0; index < rowLength; index++) {
     number = "";
@@ -61,7 +100,7 @@ for (let row = 0; row < inputLength; row++) {
         number = `${number}${line[index + 1] as string}`;
         index++;
       }
-      log(number);
+      isSymbolAdjacent(rowNumber, index, number);
     }
   }
 }

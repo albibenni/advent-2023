@@ -1,7 +1,7 @@
 import { log } from "console";
 import { readFileSync } from "fs";
 
-const input = readFileSync("./src/day3/input/test2.txt", "utf8").split("\n");
+const input = readFileSync("./src/day3/input/test.txt", "utf8").split("\n");
 const inputLength = input.length;
 const rowHeight = input.length;
 const rowLength = input[0]!.length;
@@ -45,7 +45,6 @@ const getNearbyNumbers = (
   }
   //! same line next to right
   for (let y = index - 1; y >= 0; y--) {
-    log(y);
     const element = input[rowNumber]![y] as string;
     if (isNumeric(element)) {
       //   log("left: ", element, " row: ", rowNumber, " index: ", y);
@@ -121,7 +120,7 @@ const getAdjacentNumbers = (rowNumber: number, index: number): number[] => {
     const element = belowLine[index] as string;
     if (isNumeric(element)) {
       adjacentNumbers.push(
-        parseInt(getNearbyNumbers(rowNumber + 1, index + 1, element)),
+        parseInt(getNearbyNumbers(rowNumber + 1, index, element)),
       );
     } else {
       // check bottom left diagonal counting number length
@@ -154,9 +153,9 @@ for (let rowNumber = 0; rowNumber < inputLength; rowNumber++) {
   for (let index = 0; index < rowLength; index++) {
     if (isSymbol(line[index] as string)) {
       //   log("symbol: ", line[index], " row: ", rowNumber, " index: ", index);
-      validNumbers.push(
-        getAdjacentNumbers(rowNumber, index).reduce((a, b) => a * b, 1),
-      );
+      const numbers = getAdjacentNumbers(rowNumber, index);
+      if (numbers.length > 1)
+        validNumbers.push(numbers.reduce((a, b) => a * b, 1));
     }
   }
 }
@@ -168,4 +167,4 @@ for (let rowNumber = 0; rowNumber < inputLength; rowNumber++) {
 // log(getAdjacentNumbers(0, 9));
 
 log(validNumbers);
-// log(validNumbers.reduce((a, b) => a + b, 0));
+log(validNumbers.reduce((a, b) => a + b, 0));

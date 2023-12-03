@@ -29,12 +29,42 @@ type Symbols = (typeof symbol)[number];
 const isSymbol = (str: string): str is Symbols =>
   symbol.includes(str as Symbols);
 
-input.forEach((line) => {});
+const isNumeric = (str: string): boolean => {
+  return !isNaN(Number(str));
+};
 
-// const res = input[8]?.match(/\*/);
-for (let index = 0; index < input[7]!.length; index++) {
-  const element = input[1]![index];
-  log(isSymbol(element!));
+const getNextElement = (
+  line: string,
+  index: number,
+  strNumber: string,
+): string | null => {
+  const nextIndex = index + 1;
+  if (index < line.length - 2 && isNumeric(line[nextIndex] as string)) {
+    // log("nextIndex ", nextIndex, " currNumber ", strNumber);
+    return getNextElement(line, nextIndex, line[nextIndex] as string);
+  }
+  return strNumber;
+};
+
+const inputLength = input.length;
+const rowLength = input[0]!.length;
+
+for (let row = 0; row < inputLength; row++) {
+  const line = input[row] as string;
+  let number = "";
+  for (let index = 0; index < rowLength; index++) {
+    number = "";
+    const element = line[index] as string;
+    if (isNumeric(element)) {
+      number = `${number}${element}`;
+      while (index < line.length - 2 && isNumeric(line[index + 1] as string)) {
+        number = `${number}${line[index + 1] as string}`;
+        index++;
+      }
+      log(number);
+    }
+  }
 }
 
-// log(res);
+// const number = `${""}${getNextElement(input[0]!, 0, input[0]![0]!)}`;
+// log(number);

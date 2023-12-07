@@ -32,8 +32,8 @@ const cardsHandsRanking = new Map<string, number>([
   ["High card", 1],
 ]);
 
-const currentCardRanking = new Map<string, number>();
-const hands = new Map<string, string>(); //key = hand, value = handValue (ex: "High card 9")
+const handRankingByCards: number[] = [];
+const handsRanks = new Map<number, number>(); //key = hand, value = handValue (ex: "High card 9")
 
 // const assignCardsHand = (hand: string[]): string => {};
 
@@ -51,11 +51,118 @@ const getHandValue = (hand: string): Map<string, number> => {
   return handMatches;
 };
 
+const assignHandsRanking = (handsMatches: Map<string, number>): number => {
+  const handsRanking: number[] = [];
+  const entries = handsMatches.keys();
+  while (true) {
+    const keyValue = entries.next().value;
+    // handsMatches.get(keyValue);
+    if (keyValue === undefined) break;
+
+    // log("key", keyValue);
+    handsRanking.push(handsMatches.get(keyValue) as number);
+  }
+
+  if (handsRanking.length === 0) {
+    return 1;
+  }
+  if (handsRanking.length === 1) {
+    if (handsRanking[0] === 4) {
+      return 7;
+    }
+    if (handsRanking[0] === 3) {
+      return 6;
+    }
+    if (handsRanking[0] === 2) {
+      return 4;
+    }
+    if (handsRanking[0] === 1) {
+      return 2;
+    }
+  }
+  if (handsRanking.length === 2) {
+    if (handsRanking[0] === 2 && handsRanking[1] === 1) {
+      return 5;
+    }
+    if (handsRanking[0] === 1 && handsRanking[1] === 1) {
+      return 3;
+    }
+  }
+  return 0;
+};
+
 const input = readFileSync("./src/day7/input/test.txt", "utf8").split(
   "\n",
 ) as string[];
 
 input.forEach((line) => {
   const handAndBid = line.split(" ");
-  log(getHandValue(handAndBid[0] as string));
+  const handMatches: Map<string, number> = getHandValue(
+    handAndBid[0] as string,
+  );
+  handRankingByCards.push(assignHandsRanking(handMatches));
 });
+
+const handRankingByCardsSorted = new Map<number, number>(
+  [...handRankingByCards.entries()].sort((a, b) => a[1] - b[1]),
+);
+
+log("handRankingByCardsSorted", handRankingByCardsSorted);
+let handsRanking: number[] = [];
+// for (let i = 0; i < handRankingByCards.length; i++) {
+//   let j = 0;
+//   const similarHands: Map<number, number> = new Map<number, number>();
+//   const element = handRankingByCards[i] as number;
+//   similarHands.set(i, element);
+//   while (++j < handRankingByCards.length) {
+//     if (j === i) continue;
+//     if (handRankingByCards[j] === element) {
+//       similarHands.set(j, handRankingByCards[j] as number);
+//     }
+//   }
+//   log("similarHands", similarHands);
+// }
+let currRanking = 1;
+
+const getCardsValue = (
+  handsRankingCheck: Map<number, number>,
+  index: number,
+): Map<number, number> => {
+  const cardsValue = new Map<number, number>();
+  handsRankingCheck.forEach((value, key) => {
+    log(
+      cardsValue.set(
+        key,
+        cardsRanking.get(input[key]![index] as string) as number,
+      ),
+    );
+  });
+  return cardsValue;
+};
+
+for (const [key, value] of handRankingByCardsSorted.entries()) {
+  const handsRankingCheck = new Map<number, number>();
+  handsRankingCheck.set(key, value);
+  while (true) {
+    const [key2, value2] = handRankingByCardsSorted.entries().next().value;
+    if (key2 === undefined) break;
+    if (value === value2) {
+      handsRankingCheck.set(key2, value2);
+    } else {
+      break;
+    }
+  }
+  if (handsRankingCheck.size > 1) {
+    let i = 0;
+    while (i < 5) {
+      const firstCardCheck: Map<number, number> = getCardsValue(
+        handsRankingCheck,
+        i,
+      );
+      log("firstCardCheck", firstCardCheck);
+      i++;
+    }
+  } else {
+    handsRanks.set(key, currRanking++);
+  }
+}

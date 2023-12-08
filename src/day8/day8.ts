@@ -1,7 +1,7 @@
 import { log } from "console";
 import { readFileSync } from "fs";
 
-const input = readFileSync("./src/day8/input/test.txt", "utf8").split(
+const input = readFileSync("./src/day8/input/input.txt", "utf8").split(
   "\n",
 ) as string[];
 
@@ -27,12 +27,10 @@ realInput.forEach((line) => {
   });
 });
 
-// let currentPosition = "NBN";
 let currentPosition = "AAA";
 
 const endPosition = "ZZZ";
-// const endPostion = "PXA";
-// log(commands);
+
 while (true) {
   const currentCommand = commands[commandIterator++] as string;
   currentPosition = (commandMap.get(currentPosition) as PositionOptions)[

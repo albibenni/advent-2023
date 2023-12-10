@@ -23,7 +23,8 @@
     "day7-2": "node --loader ts-node/esm src/day7/day7-2.ts",
     "day8": "node --loader ts-node/esm src/day8/day8.ts",
     "day8-2": "node --loader ts-node/esm src/day8/day8-2.ts",
-    "day9": "node --loader ts-node/esm src/day9/day9.ts"
+    "day9": "node --loader ts-node/esm src/day9/day9.ts",
+    "day10": "node --loader ts-node/esm src/day10/day10.ts"
   },
   "keywords": [],
   "author": "",

@@ -17,5 +17,5 @@
     "sourceMap": true,
     "moduleResolution": "NodeNext"
   },
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts", "src/day10/day10.js"]
 }

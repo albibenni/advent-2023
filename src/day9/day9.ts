@@ -1,6 +1,6 @@
 import { readFileSync } from "fs";
 
-const input = readFileSync("./src/day9/input/test.txt", "utf8").replace(
+const input = readFileSync("./src/day9/input/input.txt", "utf8").replace(
   /\r/g,
   "",
 );

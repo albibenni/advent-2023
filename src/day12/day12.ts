@@ -2,7 +2,10 @@ import { log } from "console";
 import { readFileSync } from "fs";
 
 import * as fs from "fs";
-
+/**
+ * Day 12: Hot Springs
+ * https://adventofcode.com/2023/day/12
+ */
 const input = fs
   .readFileSync("./src/day12/input/input.txt", "utf8")
   .replace(/\r/g, "");

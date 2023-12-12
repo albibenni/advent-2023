@@ -1,6 +1,3 @@
-import { log } from "console";
-import { readFileSync } from "fs";
-
 import * as fs from "fs";
 /**
  * Day 12: Hot Springs

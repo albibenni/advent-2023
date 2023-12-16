@@ -50,3 +50,12 @@ export const gcd = (a: number, b: number): number =>
   b == 0 ? a : gcd(b, a % b);
 export const lcm = (a: number, b: number) => (a / gcd(a, b)) * b;
 export const lcmAll = (ns: number[]) => ns.reduce(lcm, 1);
+
+/**
+ * Returns a unique integer (as key) from 2 unsigned integers
+ * Uses Elegant Pairing
+ * @param x
+ * @param y
+ */
+export const mk2n = (x: number, y: number): number =>
+  x >= y ? x * x + x + y : y * y + x;

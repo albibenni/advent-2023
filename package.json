@@ -25,7 +25,7 @@
     "day8-2": "node --loader ts-node/esm src/day8/day8-2.ts",
     "day9": "node --loader ts-node/esm src/day9/day9.ts",
     "day10": "node --loader ts-node/esm src/day10/day10.ts",
-    "day11": "node --loader ts-node/esm src/day11/day11.ts",
+    "day11": "node src/day11/day11.js",
     "day12": "node --loader ts-node/esm src/day12/day12.ts",
     "day13": "node --loader ts-node/esm src/day13/day13.ts",
     "day13-2": "node --loader ts-node/esm src/day13/day13-2.ts",

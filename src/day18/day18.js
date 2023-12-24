@@ -55,7 +55,10 @@ const getFirstAndLastAsh = (line) => {
   const firstAsh = line.indexOf("#");
   let lastAsh = undefined;
   for (let i = line.length; i > firstAsh; i--) {
-    if (line[i] === "#") lastAsh = i;
+    if (line[i] === "#") {
+      lastAsh = i;
+      break;
+    }
   }
   return [firstAsh, lastAsh];
 };
@@ -77,16 +80,15 @@ const part1 = () => {
       grid[indexPosition[1]][indexPosition[0]] = "#";
     }
   }
-  log(grid);
-  // for (let index = 0; index < grid.length; index++) {
-  //   const firstAndLast = getFirstAndLastAsh(grid[index]);
-  //   log(grid[index]);
-  //   log(firstAndLast);
-  //   if (firstAndLast[1] !== undefined) {
-  //     grid[index].fill("#", firstAndLast[0], firstAndLast[1]);
-  //   }
-  //   log(grid[index]);
-  // }
+  for (let index = 0; index < grid.length; index++) {
+    const firstAndLast = getFirstAndLastAsh(grid[index]);
+    if (firstAndLast[1] !== undefined) {
+      grid[index].fill("#", firstAndLast[0], firstAndLast[1]);
+    }
+  }
+  let total = 0;
+  grid.forEach((line) => line.forEach((char) => char === "#" && total++));
+  log(total);
 };
 
 part1();

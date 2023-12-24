@@ -51,25 +51,42 @@ const getAmountOfMovements = (line) => {
   return amountOfMovements;
 };
 
+const getFirstAndLastAsh = (line) => {
+  const firstAsh = line.indexOf("#");
+  let lastAsh = undefined;
+  for (let i = line.length; i > firstAsh; i--) {
+    if (line[i] === "#") lastAsh = i;
+  }
+  return [firstAsh, lastAsh];
+};
+
 const part1 = () => {
   const [maxX, maxY] = getGridDimension();
-  let grid = Array.from({ length: maxX + 1 }, (e) => Array(maxY + 1).fill("."));
+  let grid = Array.from({ length: maxY + 1 }, (e) => Array(maxX + 1).fill("."));
   grid[0][0] = "#";
-  log(grid);
-  let indexPosition = [1, 0];
+  let indexPosition = [0, 0];
   for (let i = 0; i < input.length; i++) {
     const movementDirection = input[i][0];
-    let amountOfMovements = getAmountOfMovements(input[i]);
-    for (let i = 1; i < amountOfMovements; i++) {
+    let amountOfMovements = parseInt(getAmountOfMovements(input[i]));
+    for (let i = 0; i < amountOfMovements; i++) {
       indexPosition = handleMovements(
         movementDirection,
         indexPosition[0],
         indexPosition[1],
       );
-      grid[indexPosition[0]][indexPosition[1]] = "#";
+      grid[indexPosition[1]][indexPosition[0]] = "#";
     }
   }
   log(grid);
+  // for (let index = 0; index < grid.length; index++) {
+  //   const firstAndLast = getFirstAndLastAsh(grid[index]);
+  //   log(grid[index]);
+  //   log(firstAndLast);
+  //   if (firstAndLast[1] !== undefined) {
+  //     grid[index].fill("#", firstAndLast[0], firstAndLast[1]);
+  //   }
+  //   log(grid[index]);
+  // }
 };
 
 part1();

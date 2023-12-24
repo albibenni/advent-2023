@@ -8,7 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const input = fs
-  .readFileSync(path.resolve(__dirname, "test.txt"), "utf8")
+  .readFileSync(path.resolve(__dirname, "input.txt"), "utf8")
   .split("\n");
 
 const handleMovements = (char, x, y) => {
@@ -77,6 +77,7 @@ const part1 = () => {
         indexPosition[0],
         indexPosition[1],
       );
+      log(indexPosition);
       grid[indexPosition[1]][indexPosition[0]] = "#";
     }
   }

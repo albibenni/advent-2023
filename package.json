@@ -32,8 +32,8 @@
     "day15": "node src/day15/day15.js",
     "day16": "node --loader ts-node/esm src/day16/day16.ts",
     "day17": "node --loader ts-node/esm src/day17/day17.ts",
-    "day18": "node --loader ts-node/esm src/day18/day18.ts",
-    "day19": "node --loader ts-node/esm src/day19/day19.ts"
+    "day18": "node  src/day18/day18.js",
+    "day19": "node src/day19/day19.js"
   },
   "keywords": [],
   "author": "",

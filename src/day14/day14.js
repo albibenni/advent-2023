@@ -1,34 +1,90 @@
-"use strict";
 import fs from "fs";
 
-const input = fs
+let lines = fs
   .readFileSync("./src/day14/input.txt", "utf8")
-  .split("\n")
-  .map((x) => x.split(""));
+  .split(/\r?\n/)
+  .map((line) => line.split(""));
 
 const part1 = () => {
-  const platform = Array(input.length)
-    .fill()
-    .map((_, i) => [...input[i]]);
-  let result = 0;
+  lines.map((line, i) => {
+    line.map((char, j) => {
+      let up = i - 1;
+      if (char === "O") {
+        while (up >= 0 && lines[up][j] === ".") {
+          up--;
+        }
+        up++;
+        if (i !== up) {
+          lines[i][j] = ".";
+          lines[up][j] = "O";
+        }
+      }
+    });
+  });
+  let sum = 0;
+  lines.map((line, i) => {
+    line.map((char) => {
+      if (char === "O") sum += lines.length - i;
+    });
+  });
+  return sum;
+};
 
-  for (let i = 0; i < platform.length; i++) {
-    for (let j = 0; j < platform[i].length; j++) {
-      if (platform[i][j] == "O") {
-        for (let k = i - 1; k >= 0 && platform[k][j] == "."; k--) {
-          platform[k][j] = "O";
-          platform[k + 1][j] = ".";
+const part2 = () => {
+  const inside = (nx, ny) =>
+    ny >= 0 && ny < lines.length && nx >= 0 && nx < lines[0].length;
+  function roll(dir = 0) {
+    // N:0 W:1 S:2 E:3
+    const dx = [0, -1, 0, 1][dir];
+    const dy = [-1, 0, 1, 0][dir];
+    for (
+      let y = dir > 1 ? lines.length - 1 : 0;
+      dir > 1 ? y >= 0 : y < lines.length;
+      y += dir > 1 ? -1 : 1
+    ) {
+      for (
+        let x = dir > 1 ? lines[y].length - 1 : 0;
+        dir > 1 ? x >= 0 : x < lines[y].length;
+        x += dir > 1 ? -1 : 1
+      ) {
+        if (lines[y][x] === "O") {
+          let [nx, ny] = [x + dx, y + dy];
+          while (inside(nx, ny) && lines[ny][nx] === ".") {
+            nx += dx;
+            ny += dy;
+          }
+          nx -= dx;
+          ny -= dy;
+          if (nx !== x || ny !== y) {
+            lines[ny][nx] = "O";
+            lines[y][x] = ".";
+          }
         }
       }
     }
+    return lines;
   }
-
-  for (let i = 0; i < platform.length; i++) {
-    result +=
-      platform[i].filter((x) => x == "O").length * (platform.length - i);
+  const cycle = () => [0, 1, 2, 3].map((dir) => (lines = roll(dir)));
+  function load(lines) {
+    let sum = 0;
+    lines.map((line, i) => {
+      line.map((char) => {
+        if (char === "O") sum += lines.length - i;
+      });
+    });
+    return sum;
   }
-
-  console.log(result);
+  let memo = [JSON.stringify(lines)]; // deep copy lines array
+  cycle();
+  while (memo.indexOf(JSON.stringify(lines)) === -1) {
+    memo.push(JSON.stringify(lines));
+    cycle();
+  }
+  const hitt = memo.indexOf(JSON.stringify(lines));
+  const fold = (begin, end, target) => ((target - hitt) % (end - begin)) + hitt;
+  lines = JSON.parse(memo[fold(hitt, memo.length, 1000000000)]);
+  return load(lines);
 };
 
-part1();
+console.log("p1:", part1(), "(112773)");
+console.log("p2:", part2(), "(98894)");

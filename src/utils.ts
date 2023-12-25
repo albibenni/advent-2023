@@ -67,5 +67,5 @@ export function getLines(day: string, separator = "\n"): string[] {
 }
 
 export function getInput(day: string): string {
-  return readFileSync(`../../src/${day}/input.txt`, "utf8").replace(/\r/g, "");
+  return readFileSync(`./src/${day}/input.txt`, "utf8").replace(/\r/g, "");
 }

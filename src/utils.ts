@@ -2,6 +2,8 @@
 // export async function runMain(main: Main) {
 //   const [_, mode = "e"] = Deno.args;
 
+import { readFileSync } from "fs";
+
 //   const fileToLoad = mode == "m" ? "input.txt" : "example.txt";
 //   const inputLines = (await Deno.readTextFile(fileToLoad)).split(/\r|\n|\r\n/);
 
@@ -59,3 +61,11 @@ export const lcmAll = (ns: number[]) => ns.reduce(lcm, 1);
  */
 export const mk2n = (x: number, y: number): number =>
   x >= y ? x * x + x + y : y * y + x;
+
+export function getLines(day: string, separator = "\n"): string[] {
+  return getInput(day).split(separator);
+}
+
+export function getInput(day: string): string {
+  return readFileSync(`../../src/${day}/input.txt`, "utf8").replace(/\r/g, "");
+}

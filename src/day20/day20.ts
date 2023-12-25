@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { getLines } from "./util";
+import { getLines } from "../utils.js";
 
 type State = [string, string, boolean];
 type BaseModule = {
@@ -131,7 +131,4 @@ const solve = (fn: string) => {
   return [p1, p2];
 };
 
-test("20", () => {
-  expect(solve("20-t2")).toEqual([11687500, 1]);
-  expect(solve("20")).toEqual([898557000, 238420328103151]);
-});
+solve("day20").forEach((s) => console.log(s));

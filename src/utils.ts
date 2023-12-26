@@ -62,6 +62,16 @@ export const lcmAll = (ns: number[]) => ns.reduce(lcm, 1);
 export const mk2n = (x: number, y: number): number =>
   x >= y ? x * x + x + y : y * y + x;
 
+/**
+ * Unpair elegant pairing
+ * @param z
+ */
+export const umk2n = (z: number): [number, number] => {
+  const q = Math.floor(Math.sqrt(z));
+  const l = z - q * q;
+  return l < q ? [l, q] : [q, l - q];
+};
+
 export function getLines(day: string, separator = "\n"): string[] {
   return getInput(day).split(separator);
 }

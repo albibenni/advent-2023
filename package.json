@@ -36,7 +36,8 @@
     "day17": "node --loader ts-node/esm src/day17/day17.ts",
     "day18": "node  src/day18/day18.js",
     "day19": "node src/day19/day19.js",
-    "day20": "node dist/day20/day20.js"
+    "day20": "node dist/day20/day20.js",
+    "day21": "node dist/day21/day21.js"
   },
   "keywords": [],
   "author": "",

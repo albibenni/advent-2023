@@ -37,7 +37,9 @@
     "day18": "node  src/day18/day18.js",
     "day19": "node src/day19/day19.js",
     "day20": "node dist/day20/day20.js",
-    "day21": "node dist/day21/day21.js"
+    "day21": "node dist/day21/day21.js",
+    "dayjs22js": "node dist/day22/day22.js",
+    "day22": "ts-node-esm src/day22/day22.ts"
   },
   "keywords": [],
   "author": "",
@@ -48,7 +50,7 @@
     "ts-jest": "^29.1.1",
     "@types/node": "^20.10.0",
     "ts-arithmetic": "^0.1.1",
-    "ts-node": "^10.9.1",
+    "ts-node": "^10.9.2",
     "ts-toolbelt": "^9.6.0",
     "tsconfig-paths": "^4.2.0",
     "dotless": "^1.2.0",

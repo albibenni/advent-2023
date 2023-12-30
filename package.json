@@ -39,7 +39,7 @@
     "day20": "node dist/day20/day20.js",
     "day21": "node dist/day21/day21.js",
     "dayjs22js": "node dist/day22/day22.js",
-    "day22": "ts-node-esm src/day22/day22.ts"
+    "day22": "node --loader ts-node/esm src/day22/day22.ts"
   },
   "keywords": [],
   "author": "",
